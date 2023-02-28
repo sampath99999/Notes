@@ -20,10 +20,18 @@ $(document).ready(async function () {
                         <tr>
                             <td>${song.name}</td>
                             <td>
-                                <button class="btn btn-secondary" onclick='
+                                <button class="btn" onclick='
                                     $("#player").attr("src", "${song.path}");
                                     $("#player")[0].play();
-                                '>Play</button>
+                                '>
+                                    <i class="bi bi-play-fill"></i>
+                                </button>
+                                <button class="btn" onclick="deleteNote(${song.id})">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                                <button class="btn" onclick="editNote(${song.id})">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
                             </td>
                         </tr>
                     `);
@@ -123,3 +131,54 @@ $(document).ready(async function () {
         });
     });
 });
+
+function deleteNote(id) {
+    if (!confirm("Are you sure you want to delete?")) {
+        return false;
+    }
+    $.ajax({
+        url: "api.php",
+        type: "POST",
+        data: { type: "delete", id: id },
+        async: true,
+        datatype: "json",
+        success: function (response) {
+            response = JSON.parse(response);
+            if (!response.status) {
+                alert("Something went wrong!");
+            } else {
+                location.reload();
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Something went wrong!");
+            return false;
+        },
+    });
+}
+
+function editNote(id) {
+    let name = prompt("Please enter new name:");
+    if (!name) {
+        return false;
+    }
+    $.ajax({
+        url: "api.php",
+        type: "POST",
+        data: { type: "update", id: id, name },
+        async: true,
+        datatype: "json",
+        success: function (response) {
+            response = JSON.parse(response);
+            if (!response.status) {
+                alert("Something went wrong!");
+            } else {
+                location.reload();
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Something went wrong!");
+            return false;
+        },
+    });
+}
