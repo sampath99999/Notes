@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="position-fixed start-0 bottom-0 m-3">
+        <div class="position-fixed end-0 top-0 m-3 d-flex gap-3">
             <button
                 type="button"
                 class="btn btn-light"
@@ -78,6 +78,14 @@
                 data-bs-target="#exampleModal"
             >
                 <i class="bi bi-plus"></i>
+            </button>
+            <button
+                type="button"
+                class="btn btn-light"
+                data-bs-toggle="modal"
+                data-bs-target="#viewTonesModal"
+            >
+                Master Table
             </button>
         </div>
 
@@ -141,6 +149,52 @@
                             id="upload"
                         >
                             Upload
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Tones -->
+        <div
+            class="modal fade"
+            id="viewTonesModal"
+            tabindex="-1"
+            aria-labelledby="viewTonesModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="viewTonesModalLabel">
+                            View Tones
+                        </h1>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <audio id="player2"></audio>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Play</th>
+                                </tr>
+                            </thead>
+                            <tbody id="masterTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+                            Close
                         </button>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 <?php
 $dbHost = "localhost";
-$dbName = "notes";
+$dbName = "music_notes_app";
 $dbUser = "postgres";
 $dbPass = "postgres";
 

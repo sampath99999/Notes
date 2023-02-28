@@ -1,5 +1,5 @@
 $(document).ready(async function () {
-    var audio = $("<audio>");
+    var audio = $("<audio id='player'>");
     $("body").append(audio);
 
     let songs = [];
@@ -13,6 +13,21 @@ $(document).ready(async function () {
             response = JSON.parse(response);
             if (response.length > 0) {
                 songs = response;
+
+                // Updating Table
+                songs.forEach((song, index) => {
+                    $("#masterTableBody").append(`
+                        <tr>
+                            <td>${song.name}</td>
+                            <td>
+                                <button class="btn btn-secondary" onclick='
+                                    $("#player").attr("src", "${song.path}");
+                                    $("#player")[0].play();
+                                '>Play</button>
+                            </td>
+                        </tr>
+                    `);
+                });
             } else {
                 alert("No songs found");
             }
@@ -39,10 +54,9 @@ $(document).ready(async function () {
             return;
         }
         if (songs.length > 0) {
-            await selectSongAndPlay();
             audio.get(0).pause();
             audio.get(0).currentTime = 0;
-            audio.get(0).play();
+            await selectSongAndPlay();
             $("#name").text("-");
             return;
         }
